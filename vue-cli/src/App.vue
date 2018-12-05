@@ -1,60 +1,80 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Test</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div>
+    <header>
+    <Navigation></Navigation>
+    </header>
+    <div class="outerModule">
+      <div>
+    <main>
+    <h2>Here you can desing your own navigation bar</h2>
+    <component :is="checkComponent" />
+    </main>
+    </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Navigation from './components/Navigation'
+import Maker from './components/Maker'
+import About from './components/About'
+import Guide from './components/Guide'
+import Contact from './components/Contact'
+import Designer from './components/Designer'
+import Htmlbox from './components/Htmlbox'
+import Cssbox from './components/Cssbox'
+import router from './router/index'
+
+
 export default {
   name: 'app',
+  components: {
+    'Navigation': Navigation,
+    'Maker': Maker,
+    'Guide': Guide,
+    'Contact': Contact,
+    'Designer': Designer,
+    'Htmlbox': Htmlbox,
+    'Cssbox': Cssbox,
+    'About': About
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Navigation bar generator!'
     }
+  },
+  computed: {
+    checkComponent() {
+      if (this.$route.path === '/maker')
+      {
+        return Maker
+      }
+      if (this.$route.path === '/about')
+      {
+        return About
+      }
+      if (this.$route.path === '/guide')
+      {
+        return Guide
+      }
+      if (this.$route.path === '/contact')
+      {
+        return Contact
+      }
+    }
+  },
+  methods : {
+
+  },
+  created() {
+    console.log("created")
+    console.log(this.$route)
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+<style src="./assets/Styling.css">
 </style>
